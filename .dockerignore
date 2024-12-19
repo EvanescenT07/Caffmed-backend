@@ -1,0 +1,6 @@
+tumor_dataset/*
+.gitignore
+.git
+brain_tumor.h5
+BrainTumorDetection_CNN.ipynb
+requirement

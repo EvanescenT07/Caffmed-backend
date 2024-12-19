@@ -5,13 +5,17 @@ from PIL import Image
 import numpy as np
 import io
 import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
+# Load environment variables
+load_dotenv()
+
 # Const
 THRESHOLD = 0.85
-MODEL_PATH = 'brain_tumor.h5'
+MODEL_PATH = 'brain_tumorV2.h5'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 MAX_FILE_SIZE = 5 * 1024 * 1024
 
@@ -147,4 +151,6 @@ def request_entity_too_large(error):
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.getenv('PORT', 5000))
+    host = os.getenv('HOST', '0.0.0.0')
+    app.run(host=host, port=port)
