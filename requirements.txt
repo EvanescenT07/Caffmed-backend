@@ -3,4 +3,6 @@ Flask-Cors
 numpy
 Pillow
 tensorflow
+gunicorn
+# waitress
 python-dotenv
