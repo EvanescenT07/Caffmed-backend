@@ -1,22 +1,21 @@
-# Use a more complete base image with CUDA support
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
-# Set working directory
+RUN apk update && apk add --no-cache shadow
+
+RUN addgroup -S appgroup && \
+      adduser -S appuser -G appgroup
+
+
+USER appuser
+
 WORKDIR /app
 
-RUN pip install --upgrade pip
-
-# Copy requirements first for caching
+COPY .env .
 COPY requirements.txt .
+COPY brain_tumorV2.h5 .
+COPY model.py .
 
-# Install Python dependencies
-RUN pip install -r requirements.txt
-
-# Copy application code
-COPY . .
-
-# Expose port
 EXPOSE 5000
 
-# Run application
 CMD ["python", "model.py"]
+
